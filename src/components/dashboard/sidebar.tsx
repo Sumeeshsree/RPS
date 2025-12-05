@@ -20,7 +20,11 @@ const sidebarItems = [
     { name: 'Users', href: '/dashboard/users', icon: Users },
 ]
 
-export function Sidebar() {
+interface SidebarProps {
+    userRole?: string
+}
+
+export function Sidebar({ userRole = 'staff' }: SidebarProps) {
     const pathname = usePathname()
     const router = useRouter()
     const supabase = createClient()
@@ -29,6 +33,11 @@ export function Sidebar() {
         await supabase.auth.signOut()
         router.push('/login')
     }
+
+    const filteredItems = sidebarItems.filter(item => {
+        if (item.name === 'Users' && userRole !== 'admin') return false
+        return true
+    })
 
     return (
         <div className="flex h-full max-h-screen flex-col gap-2">
@@ -39,7 +48,7 @@ export function Sidebar() {
             </div>
             <div className="flex-1 overflow-auto py-2">
                 <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                    {sidebarItems.map((item) => (
+                    {filteredItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}

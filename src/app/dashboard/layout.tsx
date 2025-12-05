@@ -1,15 +1,33 @@
 import { Sidebar } from '@/components/dashboard/sidebar'
 
-export default function DashboardLayout({
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
+
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+        redirect('/login')
+    }
+
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+    const userRole = profile?.role || 'staff'
+
     return (
         <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-muted/40 md:block">
                 <div className="flex h-full max-h-screen flex-col gap-2">
-                    <Sidebar />
+                    <Sidebar userRole={userRole} />
                 </div>
             </div>
             <div className="flex flex-col">

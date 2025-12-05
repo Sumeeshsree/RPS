@@ -43,10 +43,14 @@ export default async function UsersPage() {
         )
     }
 
-    const { data: users } = await supabase
+    const { data: users, error } = await supabase
         .from('profiles')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('full_name', { ascending: true })
+
+    if (error) {
+        console.error('Error fetching users:', error)
+    }
 
     return (
         <div className="flex flex-col gap-4">
