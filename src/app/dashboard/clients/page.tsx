@@ -1,4 +1,4 @@
-'use client'
+
 
 import { createClient } from '@/lib/supabase/server'
 import { ClientForm } from './client-form'
