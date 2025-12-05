@@ -60,8 +60,8 @@ interface CompanyFormationFormProps {
 export function CompanyFormationForm({ clients, service }: CompanyFormationFormProps) {
     const [open, setOpen] = useState(false)
 
-    const form = useForm<FormValues>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema) as any,
         defaultValues: {
             client_id: service?.client_id || '',
             proposed_name_1: service?.proposed_name_1 || '',
