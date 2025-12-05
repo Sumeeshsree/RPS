@@ -29,14 +29,36 @@ export async function GET() {
 
     await supabase.from('enquiries').insert(enquiries)
 
-    // 3. Tasks (Assign to first client if available)
+    // 3. Tasks
     if (insertedClients && insertedClients.length > 0) {
         const tasks = [
             { nature_of_work: 'Monthly GST Filing', client_id: insertedClients[0].id, status: 'Pending', deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() },
             { nature_of_work: 'Annual Return', client_id: insertedClients[1].id, status: 'In Progress', deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() },
+            { nature_of_work: 'Income Tax Audit', client_id: insertedClients[2].id, status: 'On Hold', deadline: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000).toISOString() },
+            { nature_of_work: 'TDS Filing Q3', client_id: insertedClients[0].id, status: 'Pending', deadline: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString() },
         ]
         await supabase.from('tasks').insert(tasks)
+
+        // 4. Office Services Data
+        // GST Registration
+        await supabase.from('service_gst_registrations').insert([
+            { client_id: insertedClients[0].id, trade_name: insertedClients[0].trade_name, status: 'In Progress', documents_status: 'Pending' },
+            { client_id: insertedClients[1].id, trade_name: 'New Client Pending', status: 'Pending', documents_status: 'Received' }
+        ])
+
+        // Company Formation
+        await supabase.from('service_company_formations').insert([
+            { client_id: insertedClients[2].id, proposed_name_1: 'InnovateX Solutions', status: 'Name Approval', type: 'Private Limited' },
+            { client_id: insertedClients[0].id, proposed_name_1: 'Tech Corp Subsidiary', status: 'Incorporation', type: 'LLP' }
+        ])
+
+        // Income Tax
+        await supabase.from('service_income_tax_filings').insert([
+            { client_id: insertedClients[0].id, assessment_year: '2024-25', status: 'Computation', type: 'Business' },
+            { client_id: insertedClients[1].id, assessment_year: '2024-25', status: 'Filed', type: 'Individual' }
+        ])
     }
+
 
     return NextResponse.json({ message: 'Demo data seeded successfully', clients: insertedClients?.length })
 }
