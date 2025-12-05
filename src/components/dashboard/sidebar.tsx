@@ -16,6 +16,7 @@ const sidebarItems = [
     { name: 'Staff Updates', href: '/dashboard/staff-updates', icon: Briefcase },
     { name: 'Inward Register', href: '/dashboard/inward-register', icon: FileInput },
     { name: 'Reports', href: '/dashboard/reports', icon: BarChart },
+    { name: 'Users', href: '/dashboard/users', icon: Users },
 ]
 
 export function Sidebar() {

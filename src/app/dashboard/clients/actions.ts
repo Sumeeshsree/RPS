@@ -28,6 +28,38 @@ export async function createClientRecord(formData: FormData) {
     return { success: true }
 }
 
+export async function updateClientRecord(id: string, formData: FormData) {
+    const supabase = await createClient()
+
+    const trade_name = formData.get('trade_name') as string
+    const legal_name = formData.get('legal_name') as string
+    const mobile = formData.get('mobile') as string
+    const email = formData.get('email') as string
+    const pan = formData.get('pan') as string
+    const gstin = formData.get('gstin') as string
+
+    const { error } = await supabase.from('clients').update({
+        trade_name,
+        legal_name,
+        mobile,
+        email,
+        pan,
+        gstin
+    }).eq('id', id)
+
+    if (error) return { error: error.message }
+    revalidatePath('/dashboard/clients')
+    return { success: true }
+}
+
+export async function deleteClientRecord(id: string) {
+    const supabase = await createClient()
+    const { error } = await supabase.from('clients').delete().eq('id', id)
+    if (error) return { error: error.message }
+    revalidatePath('/dashboard/clients')
+    return { success: true }
+}
+
 export async function addCredential(clientId: string, formData: FormData) {
     const supabase = await createClient()
     const service_name = formData.get('service_name') as string

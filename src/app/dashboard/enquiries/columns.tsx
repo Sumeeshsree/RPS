@@ -13,8 +13,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { updateEnquiryStatus } from "./actions"
+import { updateEnquiryStatus, deleteEnquiry } from "./actions"
 import { toast } from "sonner"
+import { EnquiryForm } from "./enquiry-form"
 
 export const columns: ColumnDef<Enquiry>[] = [
     {
@@ -67,6 +68,10 @@ export const columns: ColumnDef<Enquiry>[] = [
                             Copy Mobile
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
+                        <div className="p-1">
+                            <EnquiryForm enquiry={enquiry} />
+                        </div>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={async () => {
                             await updateEnquiryStatus(enquiry.id, 'Converted')
                             toast.success("Marked as Converted")
@@ -78,6 +83,15 @@ export const columns: ColumnDef<Enquiry>[] = [
                             toast.success("Marked as Closed")
                         }}>
                             Mark Closed
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem className="text-red-600" onClick={async () => {
+                            if (confirm('Are you sure?')) {
+                                await deleteEnquiry(enquiry.id)
+                                toast.success("Deleted")
+                            }
+                        }}>
+                            Delete
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
