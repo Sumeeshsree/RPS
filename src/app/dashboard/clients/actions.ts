@@ -102,3 +102,19 @@ export async function unlockCredential(credentialId: string, totpCode: string) {
         return { error: 'Decryption failed' }
     }
 }
+
+export async function importClients(clients: any[]) {
+    const supabase = await createClient()
+
+    const { error } = await supabase
+        .from('clients')
+        .insert(clients)
+
+    if (error) {
+        console.error('Error importing clients:', error)
+        return { error: 'Failed to import clients' }
+    }
+
+    revalidatePath('/dashboard/clients')
+    return { success: true }
+}

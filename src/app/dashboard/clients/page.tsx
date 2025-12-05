@@ -12,6 +12,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { DeleteClientButton } from './delete-client-button'
 
+import { CsvActions } from './csv-actions'
+
 export default async function ClientsPage() {
     const supabase = await createClient()
     const { data: clients } = await supabase
@@ -23,7 +25,10 @@ export default async function ClientsPage() {
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold tracking-tight">Clients</h2>
-                <ClientForm />
+                <div className="flex gap-2">
+                    <CsvActions data={clients || []} />
+                    <ClientForm />
+                </div>
             </div>
             <div className="rounded-md border">
                 <Table>
