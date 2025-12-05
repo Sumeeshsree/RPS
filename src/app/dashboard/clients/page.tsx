@@ -1,5 +1,3 @@
-
-
 import { createClient } from '@/lib/supabase/server'
 import { ClientForm } from './client-form'
 import Link from 'next/link'
@@ -12,9 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Button } from '@/components/ui/button'
-import { deleteClientRecord } from './actions'
-import { toast } from "sonner"
-import { Trash2 } from 'lucide-react'
+import { DeleteClientButton } from './delete-client-button'
 
 export default async function ClientsPage() {
     const supabase = await createClient()
@@ -50,14 +46,7 @@ export default async function ClientsPage() {
                                         <Link href={`/dashboard/clients/${client.id}`}>View</Link>
                                     </Button>
                                     <ClientForm client={client} />
-                                    <form action={async () => {
-                                        'use server'
-                                        await deleteClientRecord(client.id)
-                                    }}>
-                                        <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700">
-                                            <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </form>
+                                    <DeleteClientButton clientId={client.id} />
                                 </TableCell>
                             </TableRow>
                         ))}

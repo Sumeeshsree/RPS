@@ -9,9 +9,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { Button } from '@/components/ui/button'
-import { deleteTask } from './actions'
-import { Trash2 } from 'lucide-react'
+import { DeleteTaskButton } from './delete-task-button'
 
 export default async function TasksPage() {
     const supabase = await createClient()
@@ -56,14 +54,7 @@ export default async function TasksPage() {
                                 <TableCell>{task.deadline ? new Date(task.deadline).toLocaleDateString() : '-'}</TableCell>
                                 <TableCell className="flex gap-2">
                                     <TaskForm staff={staff || []} clients={clients || []} task={task} />
-                                    <form action={async () => {
-                                        'use server'
-                                        await deleteTask(task.id)
-                                    }}>
-                                        <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700">
-                                            <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </form>
+                                    <DeleteTaskButton taskId={task.id} />
                                 </TableCell>
                             </TableRow>
                         ))}
