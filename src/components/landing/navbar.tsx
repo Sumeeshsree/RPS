@@ -59,7 +59,7 @@ export function Navbar() {
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-4">
                     <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-white transition-colors">
-                        Client Portal
+                        Login
                     </Link>
                     <Button variant="default" className="bg-primary hover:bg-primary/90 text-white rounded-full px-6">
                         Book Consultation
