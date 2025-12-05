@@ -43,11 +43,14 @@ const formSchema = z.object({
     client_id: z.string().min(1, "Client is required"),
     proposed_name_1: z.string().min(1, "Proposed Name 1 is required"),
     proposed_name_2: z.string().optional(),
-    capital_amount: z.coerce.number().min(0, "Capital amount must be positive"),
+    capital_amount: z.coerce.number().min(0, "Capital amount must be positive"), // Ensure it's treated as number
     directors: z.array(directorSchema).min(1, "At least one director is required"),
     status: z.enum(['Pending', 'In Progress', 'Completed', 'Rejected']),
     notes: z.string().optional(),
 })
+
+// Extract the type explicitly to ensure TypeScript understands it's a number
+type FormValues = z.infer<typeof formSchema>
 
 interface CompanyFormationFormProps {
     clients: Client[]
@@ -57,7 +60,7 @@ interface CompanyFormationFormProps {
 export function CompanyFormationForm({ clients, service }: CompanyFormationFormProps) {
     const [open, setOpen] = useState(false)
 
-    const form = useForm<z.infer<typeof formSchema>>({
+    const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             client_id: service?.client_id || '',
