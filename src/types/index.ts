@@ -1,6 +1,7 @@
 export type Role = 'admin' | 'manager' | 'staff'
 export type EnquiryStatus = 'Open' | 'Closed' | 'Converted'
 export type TaskStatus = 'Pending' | 'In Progress' | 'Completed' | 'On Hold'
+export type ServiceStatus = 'Pending' | 'In Progress' | 'Completed' | 'Rejected'
 
 export interface Profile {
     id: string
@@ -70,4 +71,66 @@ export interface StaffUpdate {
     remarks: string | null
     // Joins
     user?: Profile
+}
+
+// Office Services Interfaces
+
+export interface ServiceGSTRegistration {
+    id: string
+    client_id: string
+    trade_name: string
+    pan_number: string
+    mobile: string
+    email: string
+    business_address: string | null
+    documents_status: Record<string, boolean>
+    status: ServiceStatus
+    notes: string | null
+    created_at: string
+    updated_at: string
+    // Joins
+    client?: Client
+}
+
+export interface ServiceGSTAmendment {
+    id: string
+    client_id: string
+    gstin: string
+    amendment_type: string
+    details: string | null
+    status: ServiceStatus
+    notes: string | null
+    created_at: string
+    updated_at: string
+    // Joins
+    client?: Client
+}
+
+export interface ServiceCompanyFormation {
+    id: string
+    client_id: string
+    proposed_name_1: string
+    proposed_name_2: string | null
+    director_details: any[] // JSONB array
+    capital_amount: number | null
+    status: ServiceStatus
+    notes: string | null
+    created_at: string
+    updated_at: string
+    // Joins
+    client?: Client
+}
+
+export interface ServiceIncomeTaxFiling {
+    id: string
+    client_id: string
+    pan_number: string
+    assessment_year: string
+    acknowledgement_no: string | null
+    status: ServiceStatus
+    notes: string | null
+    created_at: string
+    updated_at: string
+    // Joins
+    client?: Client
 }
