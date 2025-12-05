@@ -60,47 +60,47 @@
 
 @layer base {
   :root {
-    --background: 240 10% 4%;
-    /* #09090b - Deep Zinc Black */
-    --foreground: 0 0% 98%;
-    --card: 240 10% 6%;
+    --background: hsl(240 10% 2%);
+    /* #050507 - Almost Black */
+    --foreground: hsl(0 0% 98%);
+    --card: hsl(240 10% 6%);
     /* Slightly lighter than bg */
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 4%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 263.4 70% 50.4%;
+    --card-foreground: hsl(0 0% 98%);
+    --popover: hsl(240 10% 4%);
+    --popover-foreground: hsl(0 0% 98%);
+    --primary: hsl(263.4 70% 50.4%);
     /* Violet 600 - The Blitzit Purple */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 240 4% 10%;
+    --primary-foreground: hsl(210 40% 98%);
+    --secondary: hsl(240 4% 10%);
     /* Dark Secondary for pills/cards */
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 4% 12%;
-    --muted-foreground: 240 5% 60%;
+    --secondary-foreground: hsl(0 0% 98%);
+    --muted: hsl(240 4% 12%);
+    --muted-foreground: hsl(240 5% 60%);
     /* Readable Grey */
-    --accent: 263.4 70% 50.4%;
+    --accent: hsl(263.4 70% 50.4%);
     /* Match primary for accents */
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 4% 12%;
+    --accent-foreground: hsl(0 0% 98%);
+    --destructive: hsl(0 62.8% 30.6%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(240 4% 12%);
     /* Very subtle borders */
-    --input: 240 4% 12%;
-    --ring: 263.4 70% 50.4%;
-    --chart-1: 263.4 70% 50.4%;
-    --chart-2: 240 4% 16%;
-    --chart-3: 240 4% 24%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --input: hsl(240 4% 12%);
+    --ring: hsl(263.4 70% 50.4%);
+    --chart-1: hsl(263.4 70% 50.4%);
+    --chart-2: hsl(240 4% 16%);
+    --chart-3: hsl(240 4% 24%);
+    --chart-4: hsl(280 65% 60%);
+    --chart-5: hsl(340 75% 55%);
     --radius: 0.75rem;
     /* Larger radius for modern look */
-    --sidebar: 240 10% 4%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 263.4 70% 50.4%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4% 10%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 4% 12%;
-    --sidebar-ring: 263.4 70% 50.4%;
+    --sidebar: hsl(240 10% 4%);
+    --sidebar-foreground: hsl(0 0% 98%);
+    --sidebar-primary: hsl(263.4 70% 50.4%);
+    --sidebar-primary-foreground: hsl(0 0% 98%);
+    --sidebar-accent: hsl(240 4% 10%);
+    --sidebar-accent-foreground: hsl(0 0% 98%);
+    --sidebar-border: hsl(240 4% 12%);
+    --sidebar-ring: hsl(263.4 70% 50.4%);
   }
 }
 
